@@ -1,7 +1,12 @@
-import { ListaNegociacaoView } from '../views/ListaNegociacaoView';
-import { MensagemView } from '../views/MensagemView';
-import { ListaNegociacao } from '../models/ListaNegociacao';
-import { Negociacao } from '../models/Negociacao';
+import {
+    ListaNegociacaoView,
+    MensagemView
+} from '../views/index';
+
+import {
+    ListaNegociacao,
+    Negociacao
+} from '../models/index';
 
 export class NegociacaoController {
 

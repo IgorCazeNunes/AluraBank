@@ -1,28 +1,22 @@
-System.register(["../views/ListaNegociacaoView", "../views/MensagemView", "../models/ListaNegociacao", "../models/Negociacao"], function (exports_1, context_1) {
+System.register(["../views/index", "../models/index"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var ListaNegociacaoView_1, MensagemView_1, ListaNegociacao_1, Negociacao_1, NegociacaoController;
+    var index_1, index_2, NegociacaoController;
     return {
         setters: [
-            function (ListaNegociacaoView_1_1) {
-                ListaNegociacaoView_1 = ListaNegociacaoView_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (MensagemView_1_1) {
-                MensagemView_1 = MensagemView_1_1;
-            },
-            function (ListaNegociacao_1_1) {
-                ListaNegociacao_1 = ListaNegociacao_1_1;
-            },
-            function (Negociacao_1_1) {
-                Negociacao_1 = Negociacao_1_1;
+            function (index_2_1) {
+                index_2 = index_2_1;
             }
         ],
         execute: function () {
             NegociacaoController = class NegociacaoController {
                 constructor() {
-                    this._listaNegociacao = new ListaNegociacao_1.ListaNegociacao();
-                    this._listaNegociacaoView = new ListaNegociacaoView_1.ListaNegociacaoView('#listaNegociacaoView');
-                    this._mensagemView = new MensagemView_1.MensagemView('#mensagemView');
+                    this._listaNegociacao = new index_2.ListaNegociacao();
+                    this._listaNegociacaoView = new index_1.ListaNegociacaoView('#listaNegociacaoView');
+                    this._mensagemView = new index_1.MensagemView('#mensagemView');
                     this._inputData = $('#data');
                     this._inputQuantidade = $('#quantidade');
                     this._inputValor = $('#valor');
@@ -30,7 +24,7 @@ System.register(["../views/ListaNegociacaoView", "../views/MensagemView", "../mo
                 }
                 adiciona(event) {
                     event.preventDefault();
-                    const negociacao = new Negociacao_1.Negociacao(new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
+                    const negociacao = new index_2.Negociacao(new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
                     this._listaNegociacao.adiciona(negociacao);
                     this._listaNegociacaoView.update(this._listaNegociacao);
                     this._mensagemView.update('Negociação adicionada com sucesso!');

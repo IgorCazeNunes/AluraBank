@@ -1,5 +1,10 @@
-import { View } from './View';
-import { ListaNegociacao } from '../models/ListaNegociacao';
+import { 
+    View 
+} from './View';
+
+import { 
+    ListaNegociacao
+} from '../models/index';
 
 export class ListaNegociacaoView extends View<ListaNegociacao> {
 
