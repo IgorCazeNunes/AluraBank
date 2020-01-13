@@ -9,7 +9,7 @@ export class ListaNegociacao {
     }
 
     paraArray() {
-        return this._listaNegociacao;
+        return ([] as Negociacao[]).concat(this._listaNegociacao);
     }
 
 }

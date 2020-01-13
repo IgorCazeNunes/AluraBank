@@ -13,7 +13,7 @@ System.register([], function (exports_1, context_1) {
                     this._listaNegociacao.push(negociacao);
                 }
                 paraArray() {
-                    return this._listaNegociacao;
+                    return [].concat(this._listaNegociacao);
                 }
             };
             exports_1("ListaNegociacao", ListaNegociacao);
