@@ -10,7 +10,8 @@ import {
 } from '../models/index';
 
 import {
-    domInject
+    domInject,
+    throttle
 } from '../helpers/decorators/index';
 
 export class NegociacaoController {
@@ -32,9 +33,8 @@ export class NegociacaoController {
         this._listaNegociacaoView.update(this._listaNegociacao);
     }
 
-    adiciona(event: Event) {
-        event.preventDefault();
-
+    @throttle()
+    adiciona() {
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
         if (!this._ehDiaUtil(data)) {
@@ -57,6 +57,7 @@ export class NegociacaoController {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
     }
 
+    @throttle()
     importaDados() {
         function isOK(res: Response) {
             if (res.ok) {
