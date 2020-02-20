@@ -5,8 +5,7 @@ import {
 
 import {
     ListaNegociacao,
-    Negociacao,
-    NegociacaoParcial
+    Negociacao
 } from '../models/index';
 
 import {
@@ -17,6 +16,10 @@ import {
 import {
     NegociacaoService
 } from '../services/index';
+
+import {
+    print
+} from '../helpers/index';
 
 export class NegociacaoController {
 
@@ -55,6 +58,8 @@ export class NegociacaoController {
 
         this._listaNegociacao.adiciona(negociacao);
         this._listaNegociacaoView.update(this._listaNegociacao);
+
+        print(negociacao, this._listaNegociacao);
 
         this._mensagemView.update('Negociação adicionada com sucesso!');
     }
