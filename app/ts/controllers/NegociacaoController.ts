@@ -5,11 +5,12 @@ import {
 
 import {
     ListaNegociacao,
-    Negociacao
+    Negociacao,
+    NegociacaoParcial
 } from '../models/index';
 
-import { 
-    domInject 
+import {
+    domInject
 } from '../helpers/decorators/index';
 
 export class NegociacaoController {
@@ -36,7 +37,7 @@ export class NegociacaoController {
 
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
-        if(!this._ehDiaUtil(data)) {
+        if (!this._ehDiaUtil(data)) {
             this._mensagemView.update('Negociação negada, aceitamos somente negociações em dias úteis!');
             return;
         }
@@ -54,6 +55,31 @@ export class NegociacaoController {
 
     private _ehDiaUtil(data: Date) {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
+    }
+
+    importaDados() {
+        function isOK(res: Response) {
+            if (res.ok) {
+                return res;
+            } else {
+                throw new Error(res.statusText);
+            }
+        }
+
+        fetch('http://localhost:8080/dados')
+            .then(res => isOK(res))
+            .then(res => res.json())
+            .then((dados: NegociacaoParcial[]) => {
+                dados.map(dado => 
+                    new Negociacao(new Date(), dado.vezes, dado.montante)
+                )
+                .forEach(negociacao => 
+                    this._listaNegociacao.adiciona(negociacao)
+                );
+
+                this._listaNegociacaoView.update(this._listaNegociacao);
+            })
+            .catch(error => console.log(error.message));
     }
 
 }
