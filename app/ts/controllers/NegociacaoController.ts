@@ -14,6 +14,10 @@ import {
     throttle
 } from '../helpers/decorators/index';
 
+import {
+    NegociacaoService
+} from '../services/index';
+
 export class NegociacaoController {
 
     @domInject('#data')
@@ -28,6 +32,8 @@ export class NegociacaoController {
     private _listaNegociacao = new ListaNegociacao();
     private _listaNegociacaoView = new ListaNegociacaoView('#listaNegociacaoView');
     private _mensagemView = new MensagemView('#mensagemView');
+
+    private _service = new NegociacaoService();
 
     constructor() {
         this._listaNegociacaoView.update(this._listaNegociacao);
@@ -59,28 +65,20 @@ export class NegociacaoController {
 
     @throttle()
     importaDados() {
-        function isOK(res: Response) {
-            if (res.ok) {
-                return res;
-            } else {
-                throw new Error(res.statusText);
-            }
-        }
-
-        fetch('http://localhost:8080/dados')
-            .then(res => isOK(res))
-            .then(res => res.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados.map(dado => 
-                    new Negociacao(new Date(), dado.vezes, dado.montante)
-                )
-                .forEach(negociacao => 
-                    this._listaNegociacao.adiciona(negociacao)
-                );
+        this._service
+            .obterNegociacoes(res => {
+                if (res.ok) {
+                    return res;
+                } else {
+                    throw new Error(res.statusText);
+                }
+            })
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => 
+                    this._listaNegociacao.adiciona(negociacao));
 
                 this._listaNegociacaoView.update(this._listaNegociacao);
-            })
-            .catch(error => console.log(error.message));
+            });
     }
 
 }
