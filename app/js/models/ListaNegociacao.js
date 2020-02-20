@@ -19,6 +19,9 @@ System.register([], function (exports_1, context_1) {
                     console.log('-- toString --');
                     console.log(JSON.stringify(this._listaNegociacao));
                 }
+                equal(listaNegociacoes) {
+                    return JSON.stringify(this._listaNegociacao.toString()) == JSON.stringify(listaNegociacoes.toString());
+                }
             };
             exports_1("ListaNegociacao", ListaNegociacao);
         }

@@ -1,6 +1,7 @@
 import { Printable } from "./Printable";
+import { Equalable } from "./Equalable";
 
-export class Negociacao implements Printable {
+export class Negociacao implements Printable, Equalable<Negociacao> {
 
     constructor(readonly data: Date, readonly quantidade: number, readonly valor: number) {
     
@@ -19,5 +20,11 @@ export class Negociacao implements Printable {
             Valor: ${this.valor}, 
             Volume: ${this.volume}`
         );
+    }
+
+    equal(negociacao: Negociacao): boolean {
+        return this.data.getDate() == negociacao.data.getDate()
+            && this.data.getMonth() == negociacao.data.getMonth()
+            && this.data.getFullYear() == negociacao.data.getFullYear();
     }
 }
