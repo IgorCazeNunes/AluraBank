@@ -90,6 +90,9 @@ export class NegociacaoController {
                     this._listaNegociacao.adiciona(negociacao));
 
                 this._listaNegociacaoView.update(this._listaNegociacao);
+            })
+            .catch(error => {
+                this._mensagemView.update(error.message);
             });
     }
 
